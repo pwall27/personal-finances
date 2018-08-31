@@ -39,6 +39,7 @@ THIRD_PARTY = [
     'django_extensions',
     'django_filters',
     'raven.contrib.django.raven_compat',
+    'corsheaders',
     # 'django_nose',
 ]
 
@@ -53,12 +54,17 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ORIGIN_WHITELIST = (
+    'localhost:4200',
+)
 
 ROOT_URLCONF = 'config.urls'
 
@@ -145,8 +151,15 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
-STATIC_ROOT = root.path('staticfiles').__str__()
+ANGULAR_APP_DIR = root.path('frontend/dist').__str__()
+
+STATICFILES_DIRS = [
+    ANGULAR_APP_DIR,
+]
+
 STATIC_URL = '/static/'
+
+STATIC_ROOT = root.path('staticfiles').__str__()
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 

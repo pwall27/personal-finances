@@ -15,6 +15,7 @@ djangorestframework-simplejwt = "*"
 django-extensions = "*"
 django-autoslug-iplweb = "*"
 whitenoise = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 
