@@ -43,6 +43,7 @@ THIRD_PARTY = [
 ]
 
 PROJECT_APPS = [
+    'apps.authentication',
     'apps.user',
 ]
 
