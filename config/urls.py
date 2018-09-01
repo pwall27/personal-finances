@@ -14,9 +14,19 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
+
+from django.contrib.staticfiles.views import serve
+from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/auth', include('apps.authentication.urls'))
+]
+
+
+urlpatterns += [
+    re_path(r'^$', serve, kwargs={'path': 'index.html'}),
+    re_path(r'^(?!/?static/)(?!/?media/)(?P<path>.*\..*)$',
+            RedirectView.as_view(url='/static/%(path)s', permanent=False)),
 ]

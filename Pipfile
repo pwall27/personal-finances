@@ -17,6 +17,7 @@ django-autoslug-iplweb = "*"
 whitenoise = "*"
 "psycopg2-binary" = "*"
 mixer = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 
