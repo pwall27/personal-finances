@@ -6,6 +6,8 @@
 .idea/**/*
 staticfiles
 staticfiles/*
+frontend/node_modules
+frontend/node_modules/*
 ### VirtualEnv template
 # Virtualenv
 # http://iamzed.com/2009/05/07/a-primer-on-virtualenv/
