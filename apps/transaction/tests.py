@@ -1,3 +1,6 @@
+from random import choice
+
+from mixer.backend.django import mixer
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 from django.contrib.auth import get_user_model
@@ -152,3 +155,17 @@ class TransactionAPITests(TestCase):
             f'/api/v1/transactions/', data, format='json'
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_list_transactions(self):
+        list_size = 15
+        for x in range(list_size):
+            Transaction.objects.create(**{
+                'owner': self.user,
+                'transaction_type': choice([Transaction.EARNING_TYPE, Transaction.EXPENSE_TYPE]),
+                'amount': self.fake.pydecimal(left_digits=3, right_digits=2, positive=True),
+                'description': self.fake.sentence(nb_words=6, variable_nb_words=True, ext_word_list=None)
+            })
+        response = self.client.get(
+            f'/api/v1/transactions/'
+        )
+        self.assertEqual(len(response.data), list_size)
