@@ -156,6 +156,25 @@ class TransactionAPITests(TestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
+    def test_register_transaction_without_authentication(self):
+        new_client = APIClient()
+        data = {
+            'transaction_type': Transaction.EARNING_TYPE,
+            'amount': self.fake.pydecimal(left_digits=3, right_digits=2, positive=True),
+            'description': self.fake.sentence(nb_words=6, variable_nb_words=True, ext_word_list=None)
+        }
+        response = new_client.post(
+            f'/api/v1/transactions/', data, format='json'
+        )
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_list_transaction_without_authentication(self):
+        new_client = APIClient()
+        response = new_client.get(
+            f'/api/v1/transactions/', format='json'
+        )
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
     def test_list_transactions(self):
         list_size = 15
         for x in range(list_size):
