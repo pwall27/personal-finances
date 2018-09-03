@@ -1,6 +1,6 @@
 from random import choice
 
-from mixer.backend.django import mixer
+from babel.numbers import format_currency
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 from django.contrib.auth import get_user_model
@@ -104,11 +104,10 @@ class TransactionAPITests(TestCase):
         response = self.client.post(
             f'/api/v1/transactions/', data, format='json'
         )
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data['transaction_type'], data['transaction_type'])
-        self.assertEqual(response.data['amount'], data['amount'])
+        self.assertEqual(response.data['amount'], format_currency(data['amount'], currency="BRL", locale="pt_BR"))
         self.assertEqual(response.data['description'], data['description'])
-        self.assertEqual(response.data['owner'], self.user.uuid)
 
     def test_register_expense(self):
         data = {
@@ -119,11 +118,10 @@ class TransactionAPITests(TestCase):
         response = self.client.post(
             f'/api/v1/transactions/', data, format='json'
         )
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data['transaction_type'], data['transaction_type'])
-        self.assertEqual(response.data['amount'], data['amount'] * -1)
+        self.assertEqual(response.data['amount'], format_currency(data['amount'] * -1, currency="BRL", locale="pt_BR"))
         self.assertEqual(response.data['description'], data['description'])
-        self.assertEqual(response.data['owner'], self.user.uuid)
 
     def test_register_expense_for_another_user(self):
         another_user = User.objects.create_user(
@@ -142,11 +140,10 @@ class TransactionAPITests(TestCase):
         response = self.client.post(
             f'/api/v1/transactions/', data, format='json'
         )
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data['transaction_type'], data['transaction_type'])
-        self.assertEqual(response.data['amount'], data['amount'] * -1)
+        self.assertEqual(response.data['amount'], format_currency(data['amount'] * -1, currency="BRL", locale="pt_BR"))
         self.assertEqual(response.data['description'], data['description'])
-        self.assertEqual(response.data['owner'], self.user.uuid)
 
     def test_register_transaction_without_body(self):
         data = {
