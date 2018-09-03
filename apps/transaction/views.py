@@ -1,22 +1,30 @@
-from rest_framework.response import Response
-from rest_framework.viewsets import ViewSet
+from rest_framework.filters import OrderingFilter
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.generics import ListAPIView, CreateAPIView
+from rest_framework.viewsets import GenericViewSet
 
 from .serializers import TransactionSerializer
 from .models import Transaction
 
 
-class TransactionViewSet(ViewSet):
+class TransactionViewSet(CreateAPIView, ListAPIView, GenericViewSet,):
     """
-    A simple ViewSet for listing or inserting transactions.
+    A simple ModelViewSet for listing or creating new transactions.
     """
 
-    def create(self, request):
-        serializer = TransactionSerializer(data=request.data, context={'owner': self.request.user})
-        serializer.is_valid(True)
-        serializer.save()
-        return Response(serializer.data)
+    serializer_class = TransactionSerializer
+    filter_fields = ('amount', 'description')
+    filter_backends = (DjangoFilterBackend, OrderingFilter)
+    pagination_class = None
 
-    def list(self, request):
-        queryset = Transaction.objects.filter(owner=self.request.user).all()
-        serializer = TransactionSerializer(queryset, many=True)
-        return Response(serializer.data)
+    def get_queryset(self):
+        return Transaction.objects.filter(owner=self.request.user).all()
+
+    def get_serializer_context(self):
+        context = super(TransactionViewSet, self).get_serializer_context()
+        context.update(
+            {
+                'owner': self.request.user
+            }
+        )
+        return context
