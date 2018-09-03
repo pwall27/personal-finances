@@ -33,7 +33,7 @@ export class LoginComponent {
       .subscribe(
         (result: any) => {
           this.processing = false;
-          this.router.navigate(["/list"]);
+          this.router.navigate(["/transactions"]);
         },
         (error) => {
           this.processing = false;
