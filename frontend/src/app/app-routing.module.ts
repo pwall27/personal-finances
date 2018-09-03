@@ -5,6 +5,7 @@ import {RouterModule, Routes} from "@angular/router";
 const routes: Routes = [
   {path: "", redirectTo: "/login", pathMatch: "full"},
   {path: "login", loadChildren: "./components/login/login.module#LoginModule"},
+  {path: "transactions", loadChildren: "./components/transaction/transaction.module#TransactionModule"},
 ];
 
 @NgModule({

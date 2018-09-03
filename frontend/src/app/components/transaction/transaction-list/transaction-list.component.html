@@ -1,0 +1,18 @@
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col" style="cursor: pointer;" (click)="toggleOrdering('description')">Description</th>
+    <th scope="col" style="cursor: pointer;" (click)="toggleOrdering('amount')">Amount</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let transaction of transactions"
+      [ngClass]="{
+        'table-danger': transaction.transaction_type == 'expense',
+        'table-success': transaction.transaction_type == 'earning'
+      }">
+    <td>{{ transaction.description }}</td>
+    <td>{{ transaction.amount }}</td>
+  </tr>
+  </tbody>
+</table>
