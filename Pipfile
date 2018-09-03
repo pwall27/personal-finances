@@ -18,6 +18,7 @@ whitenoise = "*"
 "psycopg2-binary" = "*"
 mixer = "*"
 django-cors-headers = "*"
+babel = "*"
 
 [dev-packages]
 
