@@ -1,3 +1,5 @@
+import {isNullOrUndefined} from "util";
+
 export class Config {
     // TODO: Set apiUrl based on environment
     static apiUrl = "http://localhost:8000/api/v1";
@@ -8,6 +10,10 @@ export class Config {
     }
 
     static set accessToken(newAccessToken: string) {
+      if(isNullOrUndefined(newAccessToken)){
+        localStorage.removeItem('accessToken');
+      } else{
         localStorage.setItem('accessToken', newAccessToken);
+      }
     }
 }
