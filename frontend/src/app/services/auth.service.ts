@@ -31,14 +31,7 @@ export class AuthService {
   }
 
   isAuthenticated() {
-    if (!isNullOrUndefined(Config.accessToken )) {
-      const helper = new JwtHelperService();
-      const decodedToken = helper.decodeToken(Config.accessToken);
-      const expirationDate = helper.getTokenExpirationDate(Config.accessToken);
-      const isExpired = helper.isTokenExpired(Config.accessToken);
-      return !isExpired;
-    } else {
-      return false;
-    }
+    const helper = new JwtHelperService();
+    return !isNullOrUndefined(Config.accessToken ) && !helper.isTokenExpired(Config.accessToken);
   }
 }
