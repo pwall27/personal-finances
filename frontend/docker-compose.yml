@@ -1,0 +1,21 @@
+version: '3'
+
+volumes:
+  webapp_data: {}
+
+services:
+  webapp:
+    build: .
+    restart: always
+    volumes:
+      - webapp_data
+    environment:
+      VIRTUAL_HOST: ${DOMAINS}
+      LETSENCRYPT_HOST: ${DOMAINS}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
+    expose:
+      - "80"
+networks:
+    default:
+       external:
+         name: ${NETWORK}
