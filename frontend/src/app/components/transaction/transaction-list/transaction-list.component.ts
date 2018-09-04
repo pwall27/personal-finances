@@ -33,7 +33,6 @@ export class TransactionListComponent implements OnInit {
           for (let transaction of transactions) {
             this.transactions.push(transaction);
           }
-          console.log('list updated');
         },
         error => {
           console.log(error);
