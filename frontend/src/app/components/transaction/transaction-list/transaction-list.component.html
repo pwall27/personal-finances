@@ -1,4 +1,9 @@
-<table class="table table-striped">
+<h2>Transactions List</h2>
+<hr>
+<div class="mb-3 float-right">
+  <a class="btn btn-primary " routerLink="/transactions/create">Register new</a>
+</div>
+<table class="table table-bordered table-striped">
   <thead>
   <tr>
     <th scope="col" style="cursor: pointer;" (click)="toggleOrdering('description')">Description</th>

@@ -3,8 +3,8 @@ import {RouterModule, Routes} from "@angular/router";
 
 
 const routes: Routes = [
-  {path: "", redirectTo: "/login", pathMatch: "full"},
-  {path: "login", loadChildren: "./components/login/login.module#LoginModule"},
+  {path: "", redirectTo: "/transactions", pathMatch: "full"},
+  {path: "auth", loadChildren: "./components/auth/auth.module#AuthModule"},
   {path: "transactions", loadChildren: "./components/transaction/transaction.module#TransactionModule"},
 ];
 

@@ -7,6 +7,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {HttpService} from "./services/http.service";
 import {HttpClientModule} from "@angular/common/http";
 import {UiModule} from './ui/ui.module';
+import {AuthGuardService} from "./services/auth-guard.service";
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import {UiModule} from './ui/ui.module';
     FormsModule,
     UiModule,
   ],
-  providers: [HttpService],
+  providers: [HttpService, AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
