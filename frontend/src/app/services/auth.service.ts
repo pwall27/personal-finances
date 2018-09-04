@@ -21,7 +21,6 @@ export class AuthService {
     ).pipe(
       tap((data: any) => {
         Config.accessToken = data.access_token;
-        console.log(Config.accessToken);
       })
     );
   }

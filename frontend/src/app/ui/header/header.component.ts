@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../../services/auth.service";
+import {BehaviorSubject} from "rxjs/index";
 
 @Component({
   selector: 'app-header',
@@ -7,10 +8,19 @@ import {AuthService} from "../../services/auth.service";
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  isAuthenticated: boolean = false;
+  private loggedIn = new BehaviorSubject<boolean>(false);
 
   constructor(private authService: AuthService) {
-    this.isAuthenticated = this.authService.isAuthenticated();
+    this.isLoggedIn();
+  }
+
+  isLoggedIn() {
+    if (this.authService.isAuthenticated()) {
+      this.loggedIn.next(true);
+    } else {
+      this.loggedIn.next(false);
+    }
+    return this.loggedIn.asObservable();
   }
 
   ngOnInit() {
