@@ -64,8 +64,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
 CORS_ORIGIN_WHITELIST = (
-    'localhost:4200',
+    env('WEBCLIENT_HOST'),
 )
 
 ROOT_URLCONF = 'config.urls'
@@ -153,10 +154,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
-ANGULAR_APP_DIR = root.path('frontend/dist').__str__()
-
 STATICFILES_DIRS = [
-    ANGULAR_APP_DIR,
 ]
 
 STATIC_URL = '/static/'

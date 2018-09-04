@@ -16,7 +16,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, re_path
 
-from django.contrib.staticfiles.views import serve
 from django.views.generic import RedirectView
 
 urlpatterns = [
@@ -27,7 +26,6 @@ urlpatterns = [
 
 
 urlpatterns += [
-    re_path(r'^$', serve, kwargs={'path': 'index.html'}),
     re_path(r'^(?!/?static/)(?!/?media/)(?P<path>.*\..*)$',
             RedirectView.as_view(url='/static/%(path)s', permanent=False)),
 ]
