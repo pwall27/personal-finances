@@ -64,10 +64,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-if DEBUG:
-    CORS_ORIGIN_WHITELIST = (
-        'localhost:4200',
-    )
+
+CORS_ORIGIN_WHITELIST = (
+    env('WEBCLIENT_HOST'),
+)
 
 ROOT_URLCONF = 'config.urls'
 
